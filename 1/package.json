@@ -1,0 +1,22 @@
+{
+  "name": "1",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "exec": "node --loader ts-node/esm index.ts",
+    "test": "vitest"
+  },
+  "author": "",
+  "license": "ISC",
+  "ts-node": {
+    "esm": true
+  },
+  "dependencies": {
+    "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "vitest": "^4.0.15"
+  }
+}
