@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { Counter } from "./counter";
+import { Counter } from "./counter.js";
 
 describe("Counter", () => {
   test("initializes with correct position", () => {
