@@ -79,7 +79,7 @@ describe("findInvalid", () => {
     test("finds invalid", () => {      
       const sum = findInvalid(ranges, isRepeatingAtAll)
         .reduce((a,b) => a+b)
-      expect(sum).toBe(44854383294);
+      expect(sum).toBe(55647141923);
     });
   });
 });

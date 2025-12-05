@@ -11,7 +11,7 @@ export function findRepeating(from: number, to: number, matcher: (x: string) => 
   let repeating: number[] = []
   
   for(let x = from; x <= to; x++) {
-    if(isRepeatingTwice(x.toString())) {
+    if(matcher(x.toString())) {
       repeating.push(x);
     }
   }
