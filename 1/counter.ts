@@ -1,41 +1,23 @@
-type LapEventHandler = (lapped: number) => void;
 
-export class Counter {
-  constructor(public readonly limit: number, public position: number, private lapHandler?: LapEventHandler) {
+export function transformInput(raw: string): number[] {
+  return raw.split("\n").map(d => d.charAt(0) === "L" ? -1 * Number(d.slice(1)) : Number(d.slice(1)));
+}
+
+export function endsAt0(start: number, end: number): 1 | 0 {
+  if(end%100 === 0) {
+    return 1;
+  } else {
+    return 0;
   }
+}
 
-  count(to: string): number {
-    const direction = to.charAt(0) === "L" ? -1 : 1;
+export function countMatches(startingPosition: number, collection: number[], rule: (start: number, end: number) => number) {
+  let position = startingPosition
+  let count = 0;
 
-    // TODO: handle Nans
-    const amount = Number(to.slice(1));
+  collection.forEach(move => {
+    count += rule(position, position += move);
+  });
 
-    const ineffectiveLaps = Math.floor(amount / this.limit);
-
-    this.lapHandler && this.lapHandler(ineffectiveLaps);
-
-    const effectiveCount = direction * amount % this.limit;
-
-    const isAtOrigin = this.position === 0;
-
-    this.position = this.position + effectiveCount;
-
-    if(this.position > this.limit) {
-      this.lapHandler && this.lapHandler(1);
-      this.position = this.position % this.limit;
-    }
-    else if(this.position === this.limit) {
-      this.lapHandler && this.lapHandler(1);
-      this.position = 0;
-    } 
-    else if (this.position < 0) {
-      !isAtOrigin && this.lapHandler && this.lapHandler(1);
-      this.position = this.limit + this.position;
-    }
-    else if(this.position === 0) {
-      this.lapHandler && this.lapHandler(1);
-    }
-
-    return this.position;
-  }
+  return count;
 }
