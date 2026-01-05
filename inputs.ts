@@ -7,9 +7,10 @@ async function getSession(): Promise<string> {
 }
 
 async function makeInputDir() {
-  const dir = await fs.readdir(dirPath)
-  if(!dir) {
-    return await fs.mkdir(dirPath);
+  try {
+    await fs.readdir(dirPath)
+  } catch {
+    await fs.mkdir(dirPath);
   }
 }
 
