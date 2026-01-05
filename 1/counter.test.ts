@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { countMatches, endsAt0, transformInput } from "./counter.js";
+import { countMatches, endsAt0, passesOrEndsAt0, transformInput } from "./counter.js";
 import { getInput } from "../inputs.js";
 
 describe("transformInput ", () => {
@@ -10,6 +10,34 @@ describe("transformInput ", () => {
 });
 
 describe("countMatches", () => {
+  describe("passesOrEndsAt0", () => {
+    test("when going to 0", () => {
+      const result = countMatches(50, [-50], passesOrEndsAt0);
+      
+      expect(result).toBe(1);
+    });
+    test("when passing 100", () => {
+      const result = countMatches(50, [51], passesOrEndsAt0);
+      
+      expect(result).toBe(1);
+    });
+    test("when passing 200", () => {
+      const result = countMatches(50, [151], passesOrEndsAt0);
+      
+      expect(result).toBe(2);
+    });
+    test("when passing 300", () => {
+      const result = countMatches(50, [51,51,51,51,51], passesOrEndsAt0);
+      
+      expect(result).toBe(3);
+    });
+    test("when passing 0", () => {
+      const result = countMatches(50, [-51], passesOrEndsAt0);
+      
+      expect(result).toBe(3);
+    });
+  });
+
   describe("endsAt0", () => {
     test("when going to 0 and then 100", () => {
       const result = countMatches(50, [-30, -20, 100], endsAt0);
