@@ -11,31 +11,35 @@ describe("transformInput ", () => {
 
 describe("countMatches", () => {
   describe("passesOrEndsAt0", () => {
-    test("when going to 0", () => {
-      const result = countMatches(50, [-50], passesOrEndsAt0);
-      
+    test("when ending at 0", () => {
+      const result = passesOrEndsAt0(50, 100);
       expect(result).toBe(1);
+
+      const result2 = passesOrEndsAt0(50, 0);
+      expect(result2).toBe(1);
     });
-    test("when passing 100", () => {
-      const result = countMatches(50, [51], passesOrEndsAt0);
-      
-      expect(result).toBe(1);
-    });
-    test("when passing 200", () => {
-      const result = countMatches(50, [151], passesOrEndsAt0);
-      
+
+    test("when passing 0", () => {
+      const result = passesOrEndsAt0(50, 250);
       expect(result).toBe(2);
     });
-    test("when passing 300", () => {
-      const result = countMatches(50, [51,51,51,51,51], passesOrEndsAt0);
-      
-      expect(result).toBe(3);
+
+    test("when passing 0 by a small number", () => {
+      const result = passesOrEndsAt0(99, 101);
+      expect(result).toBe(1);
     });
-    test("when passing 0", () => {
-      const result = countMatches(50, [-51], passesOrEndsAt0);
-      
-      expect(result).toBe(3);
+
+    test("when passing 0 by going left", () => {
+      const  result = passesOrEndsAt0(1, -1);
+      expect(result).toBe(1);
     });
+
+    test("advent of code input", async () => {
+      const raw = await getInput(1);
+      const input = transformInput(raw);
+      const result = countMatches(50, input, passesOrEndsAt0);
+      expect(result).toBe(1129);
+    })
   });
 
   describe("endsAt0", () => {

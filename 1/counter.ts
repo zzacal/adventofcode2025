@@ -13,12 +13,21 @@ export function endsAt0(start: number, end: number): 1 | 0 {
 
 export function passesOrEndsAt0(start: number, end: number): number {
   let count = 0;
-  if(end%100 === 0) {
-    count+=1;
+
+  if(start < end) {
+    for(let i = start; i <= end; i++) {
+      if(i % 100 === 0) {
+        count ++
+      }
+    }
+  } else {
+    for(let i = start; i >= end; i--) {
+      if(i % 100 === 0) {
+        count ++
+      }
+    }
   }
-
-  count += Math.floor(end / 100) - Math.floor(start / 100);
-
+  
   return count;
 }
 
