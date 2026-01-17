@@ -12,32 +12,29 @@ describe("transformInput ", () => {
 describe("countMatches", () => {
   describe("passesOrEndsAt0", () => {
     describe("to the right", () => {
-      test("when ending at 100", () => {
-        const result = passesOrEndsAt0(50, 100);
-        expect(result).toBe(1);
+      test("math floor", () => {
+        expect(Math.floor(-50/100)).toEqual(-1)
       });
-
-      test("when passing 0", () => {
-        const result = passesOrEndsAt0(50, 250);
-        expect(result).toBe(2);
-      });
-
-      test("when passing 0 by a small number", () => {
-        const result = passesOrEndsAt0(99, 101);
-        expect(result).toBe(1);
-      });
+      test.each([
+        [-250,50,3],
+        [-50,50,1],
+        [50,100,1],
+        [50,150,1],
+        [50,250,2],
+        [-1,0,1],
+        [0,-1,1],
+        [250, -50, 3]
+      ])("%i -> %i: %i", (start, end, expected) =>{
+        const result = passesOrEndsAt0(start, end);
+        expect(result).toBe(expected);
+      })
     });
 
-    describe("to the left", () => {
-      test("when ending at 0 moving left", () => {
-        const result = passesOrEndsAt0(50, 0);
-        expect(result).toBe(1);
-      });
-
-      test("when passing 0 by going left", () => {
-        const  result = passesOrEndsAt0(1, -1);
-        expect(result).toBe(1);
-      });
+    test("advent of code sample input", () => {
+      const raw = "L68\nL30\nR48\nL5\nR60\nL55\nL1\nL99\nR14\nL82";
+      const input = transformInput(raw);
+      const result = countMatches(50, input, passesOrEndsAt0);
+      expect(result).toBe(6);
     });
 
 
@@ -45,7 +42,7 @@ describe("countMatches", () => {
       const raw = await getInput(1);
       const input = transformInput(raw);
       const result = countMatches(50, input, passesOrEndsAt0);
-      expect(result).toBe(1129);
+      expect(result).toBe(6649);
     })
   });
 

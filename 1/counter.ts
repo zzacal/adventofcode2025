@@ -12,10 +12,7 @@ export function endsAt0(start: number, end: number): 1 | 0 {
 }
 
 export function passesOrEndsAt0(start: number, end: number): number {
-  if(start > 0 && end > 0) {
-    return Math.floor(end / 100) - Math.floor(start / 100);
-  }
-  return 0;
+  return Math.abs(Math.floor(end / 100) - Math.floor(start / 100));
 }
 
 export function countMatches(startingPosition: number, collection: number[], rule: (start: number, end: number) => number) {
